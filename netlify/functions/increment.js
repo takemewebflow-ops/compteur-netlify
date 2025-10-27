@@ -1,4 +1,4 @@
-import fetch from "node-fetch";
+
 
 export async function handler(event, context) {
   const baseId = "appXXXXXXXX"; // ton Base ID Airtable

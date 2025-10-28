@@ -1,11 +1,11 @@
 export async function handler(event, context) {
   const baseId = "appdqVio1eZpV3qDP"; // ✅ ton Base ID Airtable
-  const apiKey = process.env.AIRTABLE_API_KEY; // ✅ clé API dans Netlify
-  const table = "Table 1";
-  const recordName = "Compteur principal";
+  const apiKey = process.env.AIRTABLE_API_KEY; // ✅ clé API cachée dans Netlify
+  const table = "Table 1"; // ✅ nom exact de ta table
+  const recordName = "Compteur principal"; // ✅ ton enregistrement
 
   try {
-    // 🔹 Lecture seule sans incrémenter
+    // === 1️⃣ Lecture seule sans incrémenter ===
     const res = await fetch(
       `https://api.airtable.com/v0/${baseId}/${encodeURIComponent(table)}?filterByFormula={Nom}="${recordName}"`,
       {
@@ -32,3 +32,4 @@ export async function handler(event, context) {
     };
   }
 }
+

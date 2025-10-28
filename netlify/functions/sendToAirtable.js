@@ -1,5 +1,3 @@
-
-
 // netlify/functions/sendToAirtable.js
 
 export async function handler(event) {
@@ -9,9 +7,9 @@ export async function handler(event) {
 
   // --- ✅ CORS : autoriser Webflow à accéder à cette fonction
   const headers = {
-    "Access-Control-Allow-Origin": "*", // 👉 tu peux remplacer * par ton domaine Webflow (ex: "https://takeme.webflow.io")
+    "Access-Control-Allow-Origin": "https://takemes-fantastic-site.webflow.io", // ✅ ton domaine Webflow exact
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
 
   // --- Réponse directe aux requêtes OPTIONS (prévol CORS)
@@ -25,15 +23,24 @@ export async function handler(event) {
 
   try {
     // --- Lecture des données envoyées par le formulaire Webflow
-    const data = JSON.parse(event.body);
+    const data = JSON.parse(event.body || "{}");
 
-    // --- Construction du record Airtable (correspondance avec tes colonnes)
+    // --- Vérification basique
+    if (!data.Nom || !data.Email) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: "Champs requis manquants." }),
+      };
+    }
+
+    // --- Construction du record Airtable
     const record = {
       fields: {
         Nom: data.Nom,
-        Prénom: data.Prénom,
-        Ville: data.Ville,
-        Type: data.Type,
+        Prénom: data.Prénom || "",
+        Ville: data.Ville || "",
+        Type: data.Type || "",
         RGPD: data.RGPD === true || data.RGPD === "on" ? true : false,
         Email: data.Email,
       },
@@ -74,5 +81,6 @@ export async function handler(event) {
     };
   }
 }
+
 
 

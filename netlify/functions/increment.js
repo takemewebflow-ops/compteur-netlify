@@ -2,7 +2,7 @@ export async function handler(event, context) {
   // === 🔐 Variables principales ===
   const baseId = "appdqVio1eZpV3qDP"; // ✅ ton Base ID Airtable
   const apiKey = process.env.AIRTABLE_API_KEY; // ✅ clé API cachée dans Netlify
-  const table = "Table 1"; // ✅ ton vrai nom de table
+  const table = "Table 1"; // ✅ nom exact de ta table
   const recordName = "Compteur principal"; // ✅ ton enregistrement
 
   try {
@@ -27,7 +27,7 @@ export async function handler(event, context) {
     const newValue = currentValue + 1;
 
     // === 3️⃣ Mise à jour de la valeur dans Airtable ===
-    await fetch(`https://api.airtable.com/v0/${baseId}/${table}/${recordId}`, {
+    await fetch(`https://api.airtable.com/v0/${baseId}/${encodeURIComponent(table)}/${recordId}`, {
       method: "PATCH",
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -48,4 +48,3 @@ export async function handler(event, context) {
     };
   }
 }
-

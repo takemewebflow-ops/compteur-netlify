@@ -3,7 +3,9 @@
 export async function handler(event) {
   const baseId = "appDFmI6RTgPRsdPj"; // ✅ Ton Base ID Airtable
   const table = "formulaire"; // ✅ Nom exact de ta table Airtable
-  const token = process.env.AIRTABLE_API_KEY_FORM; // ✅ Clé API (configurée dans Netlify)
+  const token = process.env.AIRTABLE_API_KEY_NEW_FORM; // ✅ Clé API (configurée dans Netlify)
+  // 👇 Test pour voir si Netlify détecte bien la clé
+console.log("🔑 Token détecté :", process.env.AIRTABLE_API_KEY_NEW_FORM ? "OK" : "NON DÉTECTÉ");
 
   // --- ✅ CORS : autoriser Webflow à accéder à cette fonction
   const headers = {

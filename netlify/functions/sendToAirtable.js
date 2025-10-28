@@ -1,13 +1,13 @@
 // netlify/functions/sendToAirtable.js
 
 export async function handler(event) {
-  const baseId = "appDFmI6RTgPRsdPj"; // ✅ Base TakeMe – Formulaire
-  const table = "formulaire"; // ✅ nom exact de ta table Airtable
-  const token = process.env.AIRTABLE_API_KEY_FORM; // ✅ clé API spécifique formulaire (dans Netlify)
+  const baseId = "appDFmI6RTgPRsdPj"; // ✅ Ton Base ID Airtable
+  const table = "formulaire"; // ✅ Nom exact de ta table Airtable
+  const token = process.env.AIRTABLE_API_KEY_FORM; // ✅ Clé API (configurée dans Netlify)
 
   // --- ✅ CORS : autoriser Webflow à accéder à cette fonction
   const headers = {
-    "Access-Control-Allow-Origin": "https://takemes-fantastic-site.webflow.io", // ✅ ton domaine Webflow exact
+    "Access-Control-Allow-Origin": "*", // ⚠️ Temporaire — à remplacer plus tard par ton domaine Webflow exact
     "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
     "Access-Control-Allow-Headers": "Content-Type, Authorization",
   };
@@ -38,7 +38,7 @@ export async function handler(event) {
     const record = {
       fields: {
         Nom: data.Nom,
-        Prénom: data.Prénom || "",
+        Prenom: data.Prenom || "",
         Ville: data.Ville || "",
         Type: data.Type || "",
         RGPD: data.RGPD === true || data.RGPD === "on" ? true : false,
@@ -81,6 +81,5 @@ export async function handler(event) {
     };
   }
 }
-
 
 
